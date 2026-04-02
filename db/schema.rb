@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_02_200348) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_200736) do
+  create_table "matches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "loser_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "winner_id", null: false
+    t.index ["loser_id"], name: "index_matches_on_loser_id"
+    t.index ["winner_id"], name: "index_matches_on_winner_id"
+  end
+
   create_table "players", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "matches", "players", column: "loser_id"
+  add_foreign_key "matches", "players", column: "winner_id"
 end
