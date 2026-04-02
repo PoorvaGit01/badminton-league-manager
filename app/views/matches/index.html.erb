@@ -1,0 +1,9 @@
+<h1>Matches</h1>
+<%= link_to "Record Match", new_match_path %>
+<ul>
+  <% @matches.each do |match| %>
+    <li>
+      <%= match.winner.name %> defeated <%= match.loser.name %>
+    </li>
+  <% end %>
+</ul>

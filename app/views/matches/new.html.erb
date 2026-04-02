@@ -1,0 +1,10 @@
+<h1>Record Match</h1>
+<%= form_with model: @match do |f| %>
+  Winner:
+  <%= f.collection_select :winner_id, @players, :id, :name %>
+
+  Loser:
+  <%= f.collection_select :loser_id, @players, :id, :name %>
+
+  <%= f.submit "Save Match" %>
+<% end %>
