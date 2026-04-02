@@ -1,0 +1,11 @@
+<h1>Players</h1>
+<%= link_to "Add Player", new_player_path %>
+<ul>
+  <% @players.each do |player| %>
+    <li>
+      <%= player.name %>
+      (<%= player.wins_count %>W - <%= player.losses_count %>L)
+      <%= link_to "Delete", player_path(player), method: :delete %>
+    </li>
+  <% end %>
+</ul>
