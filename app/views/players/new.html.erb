@@ -1,5 +1,19 @@
-<h1>Add Player</h1>
-<%= form_with model: @player do |f| %>
-  <%= f.text_field :name %>
-  <%= f.submit "Create Player" %>
+<h1>Add player</h1>
+
+<%= form_with model: @player, url: players_path, local: true do |f| %>
+  <% if @player.errors.any? %>
+    <ul class="errors">
+      <% @player.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, required: true %>
+  </p>
+  <p><%= f.submit "Create" %></p>
 <% end %>
+
+<p><%= link_to "Back to list", players_path %></p>

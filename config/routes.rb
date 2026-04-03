@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root "players#index"
+   root "leaderboard#index"
 
-  resources :players, only: [:index, :new, :create, :destroy]
-  resources :matches, only: [:index, :new, :create]
+  resources :players, only: %i[index new create destroy]
+  resources :matches, only: %i[index new create]
 
   get "leaderboard", to: "leaderboard#index"
 end

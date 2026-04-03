@@ -1,16 +1,27 @@
 <h1>Leaderboard</h1>
-<table>
-  <tr>
-    <th>Player</th>
-    <th>Wins</th>
-    <th>Losses</th>
-  </tr>
+<p>Ranked by wins (then fewer losses, then name).</p>
 
-  <% @players.each do |player| %>
+<table class="table">
+  <thead>
     <tr>
-      <td><%= player.name %></td>
-      <td><%= player.wins_count %></td>
-      <td><%= player.losses_count %></td>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Wins</th>
+      <th>Losses</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @players.each_with_index do |player, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= player.name %></td>
+        <td><%= player.matches_won.size %></td>
+        <td><%= player.matches_lost.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+
+<% if @players.empty? %>
+  <p>No players yet. <%= link_to "Add a player", new_player_path %>.</p>
+<% end %>

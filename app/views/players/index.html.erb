@@ -1,11 +1,15 @@
 <h1>Players</h1>
-<%= link_to "Add Player", new_player_path %>
+<p><%= link_to "Add player", new_player_path %></p>
+
 <ul>
   <% @players.each do |player| %>
     <li>
       <%= player.name %>
-      (<%= player.wins_count %>W - <%= player.losses_count %>L)
-      <%= link_to "Delete", player_path(player), method: :delete %>
+      <%= button_to "Remove", player_path(player), method: :delete, onclick: "return confirm('Remove this player?');" %>
     </li>
   <% end %>
 </ul>
+
+<% if @players.empty? %>
+  <p>No players yet.</p>
+<% end %>

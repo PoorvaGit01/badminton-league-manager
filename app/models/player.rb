@@ -1,14 +1,19 @@
 class Player < ApplicationRecord
-  has_many :won_matches, class_name: "Match", foreign_key: :winner_id
-  has_many :lost_matches, class_name: "Match", foreign_key: :loser_id
-
-  validates :name, presence: true, uniqueness: true
+  has_many :matches_won,  class_name: "Match", foreign_key: :winner_id, inverse_of: :winner, dependent: :restrict_with_error
+  has_many :matches_lost, class_name: "Match", foreign_key: :loser_id,  inverse_of: :loser, dependent: :restrict_with_error
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   def wins_count
-    won_matches.count
+    matches_won.count
   end
 
   def losses_count
-    lost_matches.count
+    matches_lost.count
+  end
+
+  def self.leaderboard
+    includes(:matches_won, :matches_lost).sort_by do |p|
+      [-p.matches_won.size, p.matches_lost.size, p.name.downcase]
+    end
   end
 end

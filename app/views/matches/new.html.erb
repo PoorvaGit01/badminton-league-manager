@@ -1,10 +1,27 @@
-<h1>Record Match</h1>
-<%= form_with model: @match do |f| %>
-  Winner:
-  <%= f.collection_select :winner_id, @players, :id, :name %>
+<h1>Record match</h1>
 
-  Loser:
-  <%= f.collection_select :loser_id, @players, :id, :name %>
+<% if @players.size < 2 %>
+  <p>You need at least two players. <%= link_to "Add players", new_player_path %>.</p>
+<% else %>
+  <%= form_with model: @match, url: matches_path, local: true do |f| %>
+    <% if @match.errors.any? %>
+      <ul class="errors">
+        <% @match.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
-  <%= f.submit "Save Match" %>
+    <p>
+      <%= f.label :winner_id, "Winner" %>
+      <%= f.collection_select :winner_id, @players, :id, :name, prompt: "Select winner" %>
+    </p>
+    <p>
+      <%= f.label :loser_id, "Loser" %>
+      <%= f.collection_select :loser_id, @players, :id, :name, prompt: "Select loser" %>
+    </p>
+    <p><%= f.submit "Save match" %></p>
+  <% end %>
 <% end %>
+
+<p><%= link_to "Back to matches", matches_path %></p>

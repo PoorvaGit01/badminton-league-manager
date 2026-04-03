@@ -1,9 +1,25 @@
-<h1>Matches</h1>
-<%= link_to "Record Match", new_match_path %>
-<ul>
-  <% @matches.each do |match| %>
-    <li>
-      <%= match.winner.name %> defeated <%= match.loser.name %>
-    </li>
-  <% end %>
-</ul>
+<h1>Match history</h1>
+<p><%= link_to "Record new match", new_match_path %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>When</th>
+      <th>Winner</th>
+      <th>Loser</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= l match.created_at, format: :short %></td>
+        <td><%= match.winner.name %></td>
+        <td><%= match.loser.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @matches.empty? %>
+  <p>No matches yet.</p>
+<% end %>

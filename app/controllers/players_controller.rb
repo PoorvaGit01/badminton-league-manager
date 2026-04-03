@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   def index
-    @players = Player.all
+    @players = Player.order(:name)
   end
 
   def new
@@ -10,15 +10,18 @@ class PlayersController < ApplicationController
   def create
     @player = Player.new(player_params)
     if @player.save
-      redirect_to players_path
+      redirect_to players_path, notice: "Player added."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
-    Player.find(params[:id]).destroy
-    redirect_to players_path
+    player = Player.find(params[:id])
+    player.destroy!
+    redirect_to players_path, notice: "Player removed."
+  rescue ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordNotFound
+    redirect_to players_path, alert: "Could not remove player."
   end
 
   private
