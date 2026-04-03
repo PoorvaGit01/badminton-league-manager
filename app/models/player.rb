@@ -13,7 +13,7 @@ class Player < ApplicationRecord
 
   def self.leaderboard
     includes(:matches_won, :matches_lost).sort_by do |p|
-      [-p.matches_won.size, p.matches_lost.size, p.name.downcase]
+      [ -p.matches_won.size, p.matches_lost.size, p.name.downcase ]
     end
   end
 end
