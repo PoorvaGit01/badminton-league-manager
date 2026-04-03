@@ -48,6 +48,7 @@ cd badminton-league-manager
 
 ```bash
 bundle install
+yarn install
 ```
 
 ### 3. Setup database
