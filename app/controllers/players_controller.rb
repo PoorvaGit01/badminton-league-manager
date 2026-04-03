@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
     player.destroy!
     redirect_to players_path, notice: "Player removed."
   rescue ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordNotFound
-    redirect_to players_path, alert: "Could not remove player."
+    redirect_to players_path, alert: "Could not remove player with recorded matches."
   end
 
   private
