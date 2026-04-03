@@ -66,7 +66,8 @@ group :test do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'shoulda-matchers', require: false
-  gem 'factory_bot_rails'
+  gem "rspec-rails"
+  gem "shoulda-matchers", require: false
+  gem "factory_bot_rails"
 end
+gem "jsbundling-rails", "~> 1.3"

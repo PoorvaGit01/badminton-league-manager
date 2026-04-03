@@ -29,3 +29,11 @@
 
 en:
   hello: "Hello world"
+
+  players:
+    create:
+      success: "Player added successfully."
+      failure: "Could not add player. Please check the errors."
+    destroy:
+      success: "Player removed successfully."
+      failure: "Could not remove player with recorded matches."

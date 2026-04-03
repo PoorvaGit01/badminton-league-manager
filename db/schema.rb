@@ -10,23 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_02_200736) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_03_103233) do
   create_table "matches", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "loser_id", null: false
+    t.integer "loser_id"
     t.datetime "updated_at", null: false
-    t.integer "winner_id", null: false
+    t.integer "winner_id"
     t.index ["loser_id"], name: "index_matches_on_loser_id"
     t.index ["winner_id"], name: "index_matches_on_winner_id"
   end
 
   create_table "players", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "matches_lost_count", default: 0, null: false
+    t.integer "matches_won_count", default: 0, null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_players_on_name"
   end
 
-  add_foreign_key "matches", "players", column: "loser_id"
-  add_foreign_key "matches", "players", column: "winner_id"
+  add_foreign_key "matches", "players", column: "loser_id", on_delete: :nullify
+  add_foreign_key "matches", "players", column: "winner_id", on_delete: :nullify
 end

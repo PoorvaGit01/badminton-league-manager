@@ -1,25 +1,30 @@
-<h1>Match history</h1>
-<p><%= link_to "Record new match", new_match_path %></p>
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="display-5">Match History</h1>
+  </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>When</th>
-      <th>Winner</th>
-      <th>Loser</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @matches.each do |match| %>
-      <tr>
-        <td><%= l match.created_at, format: :short %></td>
-        <td><%= match.winner.name %></td>
-        <td><%= match.loser.name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<% if @matches.empty? %>
-  <p>No matches yet.</p>
-<% end %>
+  <% if @matches.any? %>
+    <table class="table table-striped table-hover table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">When</th>
+          <th scope="col">Winner</th>
+          <th scope="col">Loser</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @matches.each do |match| %>
+          <tr>
+            <td><%= l match.created_at, format: :short %></td>
+            <td><%= (match.winner&.name || 'inactive player') %></td>
+            <td><%= (match.loser&.name || 'inactive player') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      No matches yet. <%= link_to "Record a match", new_match_path, class: "alert-link" %>.
+    </div>
+  <% end %>
+</div>

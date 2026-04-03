@@ -1,15 +1,21 @@
-<h1>Players</h1>
-<p><%= link_to "Add player", new_player_path %></p>
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="display-5">Players</h1>
+    <%= link_to "Add Player", new_player_path, class: "btn btn-primary" %>
+  </div>
 
-<ul>
-  <% @players.each do |player| %>
-    <li>
-      <%= player.name %>
-      <%= button_to "Remove", player_path(player), method: :delete, onclick: "return confirm('Remove this player?');" %>
-    </li>
+  <% if @players.any? %>
+    <ul class="list-group">
+      <% @players.each do |player| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= player.name %>
+          <%= button_to "Remove", player_path(player), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Remove this player?" } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="alert alert-info">
+      No players yet. <%= link_to "Add a player", new_player_path, class: "alert-link" %>.
+    </div>
   <% end %>
-</ul>
-
-<% if @players.empty? %>
-  <p>No players yet.</p>
-<% end %>
+</div>

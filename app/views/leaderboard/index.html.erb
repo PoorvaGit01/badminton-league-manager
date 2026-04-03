@@ -1,27 +1,33 @@
-<h1>Leaderboard</h1>
-<p>Ranked by wins (then fewer losses, then name).</p>
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="display-5">Leaderboard</h1>
+    <p class="text-muted mb-0">Ranked by wins, then fewer losses, then name.</p>
+  </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Rank</th>
-      <th>Player</th>
-      <th>Wins</th>
-      <th>Losses</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @players.each_with_index do |player, i| %>
-      <tr>
-        <td><%= i + 1 %></td>
-        <td><%= player.name %></td>
-        <td><%= player.matches_won.size %></td>
-        <td><%= player.matches_lost.size %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<% if @players.empty? %>
-  <p>No players yet. <%= link_to "Add a player", new_player_path %>.</p>
-<% end %>
+  <% if @players.any? %>
+    <table class="table table-striped table-hover table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Player</th>
+          <th scope="col">Wins</th>
+          <th scope="col">Losses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @players.each_with_index do |player, i| %>
+          <tr>
+            <th scope="row"><%= i + 1 %></th>
+            <td><%= player.name %></td>
+            <td><%= player.matches_won_count %></td>
+            <td><%= player.matches_lost_count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      No players yet. <%= link_to "Add a player", new_player_path, class: "alert-link" %>.
+    </div>
+  <% end %>
+</div>

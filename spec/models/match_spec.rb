@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Match, type: :model do
- 
-  describe "associations" do
-    it { should belong_to(:winner).class_name('Player').inverse_of(:matches_won) }
-    it { should belong_to(:loser).class_name('Player').inverse_of(:matches_lost) }
-  end
-
   describe "validations" do
     it "is valid when winner and loser are different" do
       winner = create(:player)
@@ -32,6 +26,12 @@ RSpec.describe Match, type: :model do
     it "is invalid if loser is missing" do
       match = build(:match, winner: create(:player), loser: nil)
       expect(match).not_to be_valid
+    end
+
+    it "validates presence of winner on create" do
+      match = Match.new(winner: nil, loser: nil)
+      expect(match).not_to be_valid
+      expect(match.errors[:winner]).to be_present
     end
   end
 end

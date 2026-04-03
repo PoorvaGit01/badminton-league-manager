@@ -3,6 +3,5 @@ Rails.application.routes.draw do
 
   resources :players, only: %i[index new create destroy]
   resources :matches, only: %i[index new create]
-
-  get "leaderboard", to: "leaderboard#index"
+  resources :leaderboard, only: %i[index]
 end
